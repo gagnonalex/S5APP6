@@ -8,6 +8,15 @@ int start[8] = {0,1,1,1,1,1,1,0};
 
 int cycle = 10;
 
+enum manchesterStates = {
+	SYNCH,
+	START,
+	TRANSMIT,
+	CRC,
+	STOP,
+	RECEIVE
+}
+
 void sendPreambule(){
 	for(int i = 0; i < 8; i++){
 		tx = preambule[i];
