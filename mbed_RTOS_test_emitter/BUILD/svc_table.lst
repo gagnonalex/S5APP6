@@ -80,10 +80,10 @@ T_LPC176X/TARGET_MBED_LPC1768 -Imbed/TARGET_LPC1768/TARGET_NXP/TARGET_LPC176X/d
 evice -Imbed/TARGET_LPC1768/TOOLCHAIN_ARM_STD -Imbed/drivers -Imbed/hal -Imbed/
 platform -I.\RTE\_mbed_RTOS_test -IC:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\D
 evice\Include -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\LPC1700
-_DFP\2.4.0 --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 524"
- --predefine="LPC175x_6x SETA 1" --cpreproc_opts=-D__ASSERT_MSG,-D__CMSIS_RTOS,
--D__MBED_CMSIS_RTOS_CM,-D__CORTEX_M3,-DARM_MATH_CM3 --list=.\build\svc_table.ls
-t mbed-rtos/rtx/TARGET_CORTEX_M/TARGET_M3/TOOLCHAIN_ARM/SVC_Table.S
+_DFP\2.4.0 --predefine="__UVISION_VERSION SETA 524" --predefine="LPC175x_6x SET
+A 1" --cpreproc_opts=-D__ASSERT_MSG,-D__CMSIS_RTOS,-D__MBED_CMSIS_RTOS_CM,-D__C
+ORTEX_M3,-DARM_MATH_CM3 --list=.\build\svc_table.lst mbed-rtos/rtx/TARGET_CORTE
+X_M/TARGET_M3/TOOLCHAIN_ARM/SVC_Table.S
 
 
 
@@ -149,4 +149,4 @@ SVC_Table.S
 SVC_Table.S
 Comment: SVC_Cnt used once
 1 symbol
-338 symbols in table
+337 symbols in table

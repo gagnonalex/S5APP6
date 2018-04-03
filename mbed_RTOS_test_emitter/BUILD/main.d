@@ -89,3 +89,5 @@
 .\build\main.o: mbed-rtos\rtos/Mail.h
 .\build\main.o: mbed-rtos\rtos/MemoryPool.h
 .\build\main.o: mbed-rtos\rtos/Queue.h
+.\build\main.o: Manchester.h
+.\build\main.o: Message.h

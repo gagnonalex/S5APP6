@@ -1335,6 +1335,26 @@
               <FileType>5</FileType>
               <FilePath>mbed_config.h</FilePath>
             </File>
+            <File>
+              <FileName>Manchester.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\Manchester.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Manchester.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Manchester.h</FilePath>
+            </File>
+            <File>
+              <FileName>Message.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\Message.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Message.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Message.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

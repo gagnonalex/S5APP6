@@ -1,60 +1,28 @@
 #include "mbed.h"
 #include "rtos.h"
-
-DigitalOut tx(p20);
-
-int preambule[8] = {0,1,0,1,0,1,0,1};
-int start[8] = {0,1,1,1,1,1,1,0};
-
-int cycle = 10;
-
-enum manchesterStates = {
-	SYNCH,
-	START,
-	TRANSMIT,
-	CRC,
-	STOP,
-	RECEIVE
-}
-
-void sendPreambule(){
-	for(int i = 0; i < 8; i++){
-		tx = preambule[i];
-		Thread::wait(cycle);
-	}
-}	
-
-void sendStart(){
-	for(int i = 0; i < 8; i++){
-		tx = start[i];
-		
-		if(i < 7)
-		{
-			if(start[i+1] == 0){
-				Thread::wait(cycle/2);
-				tx = 1;
-			}
-			else{
-				Thread::wait(cycle/2);
-				tx = 0;
-			}
-		}
-		
-		Thread::wait(cycle/2);
-	}
-}
+#include "Manchester.h"
+#include "Message.h"
 
 int main()
-{	
-	tx = 1;
+{
+	Manchester manchester(p21, p17, 120000); //(tx,rx);
 	
-	while(1) {
-		sendPreambule();
-		tx = 1;
-		Thread::wait(cycle);
-		sendStart();
-		tx = 1 ;
-		Thread::wait(100);
+	/*uint8_t msg[14] = {	0b01100110, 0b01100110,
+											0b01101010, 0b10101001,
+											0b01010101, 0b01010101,
+											0b01010101, 0b01010101,
+											0b01010101, 0b01010101,
+											0b01010101, 0b01010101,
+											0b01101010, 0b10101001};
+	
+		*/									
+	char msg [5] = {0x50, 0x45, 0x4e, 0x49, 0x53}; // ALLO
+	Message trame(5);
+										
+	trame.encode(msg);
+	while(1)
+	{
+		manchester.prepareTransmission(trame.frame, trame.length);
+		wait(5);
 	}
 }
-
