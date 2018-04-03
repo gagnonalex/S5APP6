@@ -16,7 +16,8 @@ class Manchester{
 		CRC,
 		END,
 		RECEIVE,
-		WAITING
+		WAITING,
+		ERROR
 	};
 	
 	struct messageInfo 
@@ -34,7 +35,8 @@ private:
 	DigitalOut _tx;
 	InterruptIn _rx;
 	Timer _timer;
-	Thread printer;
+	Thread printBit;
+	Thread printPreamble;
 
 	State _sendingState;
 	State _receptionState;
@@ -64,5 +66,7 @@ private:
 	void inputDetectedUp();
 	void inputDetectedDown();
 	void readBit(int bit);
+	void printData(void);
+	void print();
 };
 #endif

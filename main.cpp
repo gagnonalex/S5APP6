@@ -28,10 +28,8 @@ int main()
 //		//manchester.prepareTransmission(trame.frame, trame.length);
 //		//wait(5);
 //	}
-	
 	while(1)
 	{
-	
 		bool t = manchester.receive();
 		if(t)
 		{
