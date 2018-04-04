@@ -52,6 +52,8 @@ private:
 	DigitalOut _tx; // Transmission
 	InterruptIn _rx; // Réception
 	Timer _timer;
+	Timer _timerEnvoi;
+	Timer _timerReception;
 	Thread _printBit; // Thread d'écriture pour la lecture des bits
 	Thread _printPreamble; // Thread d'écriture pour la lecture du préambule
 	Ticker _ticker; // Ticker s'occupant d'envoyer la trame manchester

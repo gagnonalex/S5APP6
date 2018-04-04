@@ -32,6 +32,8 @@ Manchester::Manchester(PinName txPin, PinName rxPin, uint32_t speed): _tx(txPin)
 	_isNotFirstRun = false;
 	
 	_timer.start();
+	_timerEnvoi.start();
+	_timerReception.start();
 	
 	_rx.disable_irq();
 	
@@ -79,8 +81,10 @@ le Ticker pour l'envoi sur le port Tx. La vérification si l'envoi est terminé es
 ******************************************************************************************************/
 void Manchester::prepareTransmission()
 {
+	uint32_t tempsEnvoi;
 	while(1)
 	{
+		_timerEnvoi.reset();
 		bool txFinished = false;
 		_sendingState = SYNCH; // Initialise l'état de la machine initial
 		
@@ -97,6 +101,10 @@ void Manchester::prepareTransmission()
 		} while (!txFinished); 
 		
 		_ticker.detach(); // Détache le ticker pour qu'il se termine.
+		
+		tempsEnvoi = _timerEnvoi.read_us();
+		
+		pc.printf("Duree d'envoi : %d en us\r\n", tempsEnvoi);
 		
 		Thread::wait(100);
 	}
@@ -185,8 +193,11 @@ si la réception est finie et de recalculer le CRC16 du message reçu et le compar
 ******************************************************************************************************/
 void Manchester::receive()
 {
+	uint32_t dureeReception;
 	while(1)
 	{
+		_timerReception.reset();
+		
 		bool rxFinished;
 		_meanPeriod =0;
 		_period = 0;
@@ -232,6 +243,10 @@ void Manchester::receive()
 				pc.printf("Trame recue erronee");
 			}
 		}
+		
+		dureeReception = _timerReception.read_us();
+		
+		pc.printf("Duree de reception : %d\r\n", dureeReception);
 		
 		Thread::wait(100);
 	}
