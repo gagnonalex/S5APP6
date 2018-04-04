@@ -3,26 +3,26 @@
 #include "Manchester.h"
 #include "Message.h"
 
+Thread send;
+Thread receive;
+
 int main()
 {
-	Manchester manchester(p21, p17, 120000); //(tx,rx);
+	Manchester manchester(p21, p5, 120000); //(tx,rx);
+		
+	char msg [7] = {0x44, 0x4f, 0x4d, 0x49, 0x4e, 0x47, 0x4f}; // DOMINGO
+	Message trame(7);
 	
-	/*uint8_t msg[14] = {	0b01100110, 0b01100110,
-											0b01101010, 0b10101001,
-											0b01010101, 0b01010101,
-											0b01010101, 0b01010101,
-											0b01010101, 0b01010101,
-											0b01010101, 0b01010101,
-											0b01101010, 0b10101001};
-	
-		*/									
-	char msg [5] = {0x50, 0x45, 0x4e, 0x49, 0x53}; // ALLO
-	Message trame(5);
-										
 	trame.encode(msg);
+
+	manchester._frame = trame.frame;
+	manchester._length = (trame.length-14);
+
+	send.start(callback(&manchester, &Manchester::prepareTransmission));
+	receive.start(callback(&manchester, &Manchester::receive));
+	
 	while(1)
 	{
-		manchester.prepareTransmission(trame.frame, trame.length);
-		wait(5);
+		Thread::wait(osWaitForever);
 	}
 }
